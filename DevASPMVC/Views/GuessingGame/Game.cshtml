@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    ViewBag.Title = "Number Guessing Game";
+    Layout = "_Layout";
+}
+
+<h2>Number guessing game!</h2>
+<p>Guess a number 1-100</p>
+
+<form asp-controller="GuessingGame" asp-action="Game" method="post">
+    <label>Number:</label>
+    <input type="number" min="1" max="100" name="guess" />
+    <input type="submit" value="Check" />
+</form>
+
+@{
+    if (ViewBag.Message != null)
+    {
+        <p>@ViewBag.Message</p>
+    }
+}
