@@ -1,6 +1,12 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿* {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0;    
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -39,5 +45,69 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-valid {
     display: none;
+}
+
+nav {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+header {
+    display: flex;
+    background-color: darkgray;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: space-evenly;
+    text-decoration: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 25%;
+}
+
+.nav-list li {
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+}
+
+.nav-list a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem 0 1rem;
+    text-decoration: none;
+    color: black;
+    background-color: gray;
+}
+
+.container {
+    flex-grow: 1;
+    padding: 1rem;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    background-color: #050505;
+    color: #eeeeee;
+    padding: 0 1rem 0 1rem;
+    text-decoration: none;
+}
+
+footer {
+    display: flex;
+    align-self: flex-end;
+    justify-self: flex-end;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: darkgray;
 }
 

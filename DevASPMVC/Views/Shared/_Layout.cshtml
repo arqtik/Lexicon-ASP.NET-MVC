@@ -4,10 +4,40 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <div>
-        @RenderBody()
-    </div>
+
+<header>
+    <a class="logo" asp-controller="Home" asp-action="Index"><h1>Martynas MVC</h1></a>
+    <nav>
+        <ul class="nav-list">
+            <li>
+                <a asp-controller="Home" asp-action="About">About</a>
+            </li>
+            <li>
+                <a asp-controller="Home" asp-action="Projects">Projects</a>
+            </li>
+            <li>
+                <a asp-controller="Home" asp-action="Contact">Contact</a>
+            </li>
+
+        </ul>
+    </nav>
+</header>
+
+
+<div class="container">
+    @RenderBody()
+</div>
+
+
+<footer>
+    <p>@DateTime.Now.ToShortDateString() Martynas Vosylius</p>
+</footer>
+
 </body>
 </html>
