@@ -46,19 +46,19 @@ namespace DevASPMVC
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}"
-                    );
-                
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "doctor",
                     pattern: "FeverCheck",
-                    defaults: new { controller = "Doctor", action = "FeverCheck" }
-                    );
+                    defaults: new { controller = "Doctor", action = "FeverCheck" });
                 endpoints.MapControllerRoute(
                     name: "guessingGame",
                     pattern: "GuessingGame",
-                    defaults: new { controller = "GuessingGame", action = "Game" }
-                );
+                    defaults: new { controller = "GuessingGame", action = "Game" });
+                endpoints.MapControllerRoute(
+                    name: "people",
+                    pattern: "people",
+                    defaults: new {controller = "People", action = "Index"});
             });
         }
     }
