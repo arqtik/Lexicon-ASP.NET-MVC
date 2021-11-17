@@ -12,6 +12,7 @@ namespace DevASPMVC.Models
         {
             new Person()
             {
+                ID = -1,
                 FirstName = "Mikael",
                 LastName = "Persson",
                 Gender = Gender.Male,
@@ -20,6 +21,7 @@ namespace DevASPMVC.Models
             },
             new Person()
             {
+                ID = -2,
                 FirstName = "Mikael",
                 LastName = "Johansson",
                 Gender = Gender.Male,
