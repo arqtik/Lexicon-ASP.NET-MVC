@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DevASPMVC.Models
 {
     public static class PeopleRepository
     {
+        private static int _counter = 0;
+        
         public static List<Person> AllPeople = new List<Person>()
         {
             new Person()
@@ -23,5 +27,20 @@ namespace DevASPMVC.Models
                 Email = "mikaelJohansson@domain.com"
             }
         };
+
+        public static void AddPerson(Person person)
+        {
+            person.ID = _counter;
+            _counter++;
+            AllPeople.Add(person);
+        }
+
+        public static void RemovePerson(int id)
+        {
+            if (AllPeople.Exists(p => p.ID == id))
+            {
+                AllPeople.Remove(AllPeople.First(p => p.ID == id));
+            }
+        }
     }
 }

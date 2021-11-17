@@ -24,7 +24,7 @@ namespace DevASPMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                PeopleRepository.AllPeople.Add( new Person()
+                PeopleRepository.AddPerson(new Person()
                 {
                     FirstName = cpvm.FirstName,
                     LastName = cpvm.LastName,
@@ -42,9 +42,12 @@ namespace DevASPMVC.Controllers
             return View(pvm);
         }
 
-        public IActionResult Remove(Person person)
+        [HttpGet]
+        public IActionResult RemoveById(int id)
         {
-            return null;
+            PeopleRepository.RemovePerson(id);
+
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

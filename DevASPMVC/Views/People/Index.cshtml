@@ -52,7 +52,7 @@
             {
                 foreach (var person in Model.People)
                 {
-                    <tr>
+                    <tr onclick="location.href='@Url.Action("RemoveById", "People", person.ID)'">
                         <td>@person.FirstName</td>
                         <td>@person.LastName</td>
                         <td>@person.Gender</td>
