@@ -57,7 +57,7 @@ namespace DevASPMVC
                     defaults: new { controller = "GuessingGame", action = "Game" });
                 endpoints.MapControllerRoute(
                     name: "people",
-                    pattern: "people",
+                    pattern: "people/{query?}",
                     defaults: new {controller = "People", action = "Index"});
             });
         }

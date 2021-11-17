@@ -125,3 +125,29 @@ table td, table th{
     padding: 1rem;
 }
 
+.flex-vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.flex-vertical input,
+.flex-vertical select {
+    padding: 0.25rem;
+}
+
+.rounded-box {
+    border: 1px solid #8c8c8c;
+    border-radius: 10px;
+    padding: 3rem;
+}
+
+.primary-bg {
+    background-color: #FFBF00;
+}
+
+.search-box {
+    font-size: 1.5rem;
+    margin-block: 2rem;
+    text-align: center;
+}

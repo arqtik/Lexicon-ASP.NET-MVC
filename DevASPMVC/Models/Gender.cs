@@ -1,4 +1,5 @@
-﻿namespace DevASPMVC.Models
+﻿
+namespace DevASPMVC.Models
 {
     public enum Gender
     {

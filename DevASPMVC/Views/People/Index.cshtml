@@ -1,4 +1,5 @@
-﻿@model PeopleViewModel
+﻿@using DevASPMVC.Models
+@model PeopleViewModel
 
 @{
     ViewBag.Title = "People Index";
@@ -7,19 +8,47 @@
 
 <h2>People Index</h2>
 
+<form asp-controller="People" asp-action="Index" method="post" class="flex-vertical rounded-box primary-bg">
+    <h3>Create new person</h3>
+    @Html.LabelFor(model => model.CreatePerson.FirstName)
+    @Html.EditorFor(model => model.CreatePerson.FirstName)
+    @Html.ValidationMessageFor(model => model.CreatePerson.FirstName)
+    
+    @Html.LabelFor(model => model.CreatePerson.LastName)
+    @Html.EditorFor(model => model.CreatePerson.LastName)
+    @Html.ValidationMessageFor(model => model.CreatePerson.LastName)
+    
+    @Html.LabelFor(model => model.CreatePerson.Gender)
+    <select asp-for="CreatePerson.Gender" asp-items="Html.GetEnumSelectList<Gender>()"></select>
+    @Html.ValidationMessageFor(model => model.CreatePerson.Gender)
+
+    @Html.LabelFor(model => model.CreatePerson.Address)
+    @Html.EditorFor(model => model.CreatePerson.Address)
+    @Html.ValidationMessageFor(model => model.CreatePerson.Address)
+    
+    @Html.LabelFor(model => model.CreatePerson.Email)
+    @Html.EditorFor(model => model.CreatePerson.Email)
+    @Html.ValidationMessageFor(model => model.CreatePerson.Email)
+    
+    <input type="submit" value="Create Person"/>
+</form>
+
+<form asp-controller="People" asp-action="Search" method="get" >
+    <input asp-for="@Model.SearchString" type="search" name="SearchString" id="SearchString" placeholder="Search for people" class="search-box"/>
+</form>
 
 @{
-    if (Model.People.Any())
-    {
-        <table>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Gender</th>
-                <th>Address</th>
-                <th>E-mail</th>
-            </tr>
-            @{
+    <table>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>Address</th>
+            <th>E-mail</th>
+        </tr>
+        @{
+            if (Model?.People != null)
+            {
                 foreach (var person in Model.People)
                 {
                     <tr>
@@ -31,8 +60,8 @@
                     </tr>
                 }
             }
-        </table>
-    }
+        }
+    </table>
 }
 
 
