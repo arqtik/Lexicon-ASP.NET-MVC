@@ -60,7 +60,6 @@ namespace DevASPMVC.Controllers
                          p.LastName.Contains(search) ||
                          p.Address.Contains(search)
                 ).ToList();
-                return View("Index", pvm);
             }
             
             return View("Index", pvm);
