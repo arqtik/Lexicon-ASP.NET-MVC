@@ -45,7 +45,6 @@ namespace DevASPMVC.Controllers
         [HttpGet]
         public IActionResult RemoveById(int id)
         {
-            //
             PeopleRepository.RemovePerson(id);
 
             return RedirectToAction("Index");
