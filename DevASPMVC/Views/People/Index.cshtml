@@ -10,6 +10,7 @@
 
 <form asp-controller="People" asp-action="Index" method="post" class="flex-vertical rounded-box primary-bg">
     <h3>Create new person</h3>
+    @Html.AntiForgeryToken()
     @Html.LabelFor(model => model.CreatePerson.FirstName)
     @Html.EditorFor(model => model.CreatePerson.FirstName)
     @Html.ValidationMessageFor(model => model.CreatePerson.FirstName)

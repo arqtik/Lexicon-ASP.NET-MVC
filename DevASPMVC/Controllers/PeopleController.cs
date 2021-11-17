@@ -13,19 +13,6 @@ namespace DevASPMVC.Controllers
         {
             PeopleViewModel pvm = new PeopleViewModel();
             pvm.People = PeopleRepository.AllPeople;
-            /*
-            if (string.IsNullOrEmpty(query))
-            {
-                pvm.People = PeopleRepository.AllPeople;
-            }
-            else
-            {
-                pvm.People = PeopleRepository.AllPeople.Where(
-                    p => p.FirstName.Contains(query) ||
-                         p.LastName.Contains(query) ||
-                         p.Address.Contains(query)
-                    ).ToList();
-            }*/
             
             return View(pvm);
         }
