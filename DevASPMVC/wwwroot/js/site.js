@@ -7,11 +7,17 @@ function GetAllPeople(){
 }
 
 function GetPersonById(){
-    $.get("/Ajax/GetPersonById", { id: PersonIDInput.value }, function (data) {
+    $.post("/Ajax/GetPersonById", { id: PersonIDInput.value }, function (data) {
         $("#AjaxContainer").html(data)
     });
 }
 
 function DeletePersonById(){
-    
+    $.post("/Ajax/RemovePersonById", { id: PersonIDInput.value }, null)
+        .done(function (){
+            $("#ErrorMessages").html("Successfully deleted person");
+        })
+        .fail(function (){
+            $("#ErrorMessages").html("Failed to delete person");
+        });
 }

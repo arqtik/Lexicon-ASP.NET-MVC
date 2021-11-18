@@ -1,14 +1,14 @@
 ﻿@model Person
 
 @{
-    if (Model != null)
-    {
+    if(Model != null){
         <div class="row" onclick="location.href='@Url.Action("RemoveById", "People", new {id = Model.ID})'">
-            <div class="col col-border col-padding">@Model.FirstName</div>
-            <div class="col col-border col-padding">@Model.LastName</div>
-            <div class="col col-border col-padding">@Model.Gender</div>
+            <div class="col-2 col-border col-padding">@Model.FirstName</div>
+            <div class="col-2 col-border col-padding">@Model.LastName</div>
+            <div class="col-1 col-border col-padding">@Model.Gender</div>
             <div class="col col-border col-padding">@Model.Address</div>
             <div class="col col-border col-padding">@Model.Email</div>
+            <div class="col-1 col-border col-padding">@Model.ID</div>
         </div>
     }
 }

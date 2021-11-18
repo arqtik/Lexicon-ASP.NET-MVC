@@ -18,7 +18,7 @@ namespace DevASPMVC.Controllers
             return PartialView("_PeoplePartial", PeopleRepository.AllPeople);
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult GetPersonById(int id)
         {
             Person person = PeopleRepository.AllPeople.FirstOrDefault(p => p.ID == id);
@@ -28,6 +28,19 @@ namespace DevASPMVC.Controllers
                 people.Add(person);
             }
             return PartialView("_PeoplePartial", people);
+        }
+
+        [HttpPost]
+        public IActionResult RemovePersonById(int id)
+        {
+            if (PeopleRepository.AllPeople.Exists(p => p.ID == id))
+            {
+                PeopleRepository.RemovePerson(id);
+                
+                return StatusCode(200);
+            }
+
+            return StatusCode(404);
         }
     }
 }
