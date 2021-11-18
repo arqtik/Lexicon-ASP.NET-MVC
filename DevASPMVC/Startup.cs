@@ -59,6 +59,10 @@ namespace DevASPMVC
                     name: "people",
                     pattern: "people/{query?}",
                     defaults: new {controller = "People", action = "Index"});
+                endpoints.MapControllerRoute(
+                    name: "ajax",
+                    pattern: "ajax",
+                    defaults: new {controller = "Ajax", action = "Index"});
             });
         }
     }
