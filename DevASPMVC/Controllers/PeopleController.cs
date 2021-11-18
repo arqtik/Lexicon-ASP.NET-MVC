@@ -18,7 +18,7 @@ namespace DevASPMVC.Controllers
         }
         
         [HttpPost]
-        public IActionResult Index(PeopleViewModel peopleViewModel)
+        public IActionResult Create(PeopleViewModel peopleViewModel)
         {
             CreatePersonViewModel cpvm = peopleViewModel.CreatePerson;
 
@@ -39,7 +39,7 @@ namespace DevASPMVC.Controllers
                 People = PeopleRepository.AllPeople
             };
             
-            return View(pvm);
+            return View("Index", pvm);
         }
 
         [HttpGet]

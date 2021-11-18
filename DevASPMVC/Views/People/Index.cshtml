@@ -8,7 +8,7 @@
 
 <h2>People Index</h2>
 
-<form asp-controller="People" asp-action="Index" method="post" class="flex-vertical rounded-box primary-bg">
+<form asp-controller="People" asp-action="Create" method="post" class="flex-vertical rounded-box primary-bg">
     <h3>Create new person</h3>
     @Html.AntiForgeryToken()
     @Html.LabelFor(model => model.CreatePerson.FirstName)
