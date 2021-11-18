@@ -146,6 +146,14 @@ table td, table th{
     background-color: #FFBF00;
 }
 
+.col-border {
+    border: 1px solid #8c8c8c;
+}
+
+.col-padding{
+    padding: 0.75rem;
+}
+
 .search-box {
     font-size: 1.5rem;
     margin-block: 2rem;

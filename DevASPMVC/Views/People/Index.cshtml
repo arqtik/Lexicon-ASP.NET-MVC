@@ -39,34 +39,25 @@
 </form>
 
 @{
+    <p></p>
     <div class="container">
-        
-    </div>
-    
-    <table>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Gender</th>
-            <th>Address</th>
-            <th>E-mail</th>
-        </tr>
+        <div class="row primary-bg">
+            <div class="col col-border col-padding">First Name</div>
+            <div class="col col-border col-padding">Last Name</div>
+            <div class="col col-border col-padding">Gender</div>
+            <div class="col col-border col-padding">Address</div>
+            <div class="col col-border col-padding">E-mail</div>
+        </div>
         @{
             if ((Model?.People).Any())
             {
                 foreach (var person in Model.People)
                 {
-                    <tr onclick="location.href='@Url.Action("RemoveById", "People", new {id = person.ID})'">
-                        <td>@person.FirstName</td>
-                        <td>@person.LastName</td>
-                        <td>@person.Gender</td>
-                        <td>@person.Address</td>
-                        <td>@person.Email</td>
-                    </tr>
+                    <partial name="_PersonPartial" model="@person"/>
                 }
             }
         }
-    </table>
+    </div>
 }
 
 
