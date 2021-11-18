@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DevASPMVC.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DevASPMVC.Controllers
 {
@@ -8,5 +9,13 @@ namespace DevASPMVC.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult GetAllPeople()
+        {
+            return PartialView("_PeoplePartial", PeopleRepository.AllPeople);
+        }
+        
+        
     }
 }
