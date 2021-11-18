@@ -84,7 +84,7 @@ header {
     background-color: gray;
 }
 
-.container {
+.flex-container {
     flex-grow: 1;
     padding: 1rem;
     
