@@ -48,7 +48,7 @@
             <th>E-mail</th>
         </tr>
         @{
-            if (Model?.People != null)
+            if ((Model?.People).Any())
             {
                 foreach (var person in Model.People)
                 {
