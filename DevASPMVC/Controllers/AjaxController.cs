@@ -22,7 +22,12 @@ namespace DevASPMVC.Controllers
         public IActionResult GetPersonById(int id)
         {
             Person person = PeopleRepository.AllPeople.FirstOrDefault(p => p.ID == id);
-            return PartialView("_PersonPartial", person);
+            List<Person> people = new List<Person>();
+            if (person != null)
+            {
+                people.Add(person);
+            }
+            return PartialView("_PeoplePartial", people);
         }
     }
 }
