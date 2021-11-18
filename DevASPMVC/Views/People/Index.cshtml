@@ -38,27 +38,10 @@
     <input asp-for="@Model.SearchString" type="search" name="SearchString" id="SearchString" placeholder="Search for people" class="search-box"/>
 </form>
 
-@{
-    <p></p>
-    <div class="container">
-        <div class="row primary-bg">
-            <div class="col col-border col-padding">First Name</div>
-            <div class="col col-border col-padding">Last Name</div>
-            <div class="col col-border col-padding">Gender</div>
-            <div class="col col-border col-padding">Address</div>
-            <div class="col col-border col-padding">E-mail</div>
-        </div>
-        @{
-            if ((Model?.People).Any())
-            {
-                foreach (var person in Model.People)
-                {
-                    <partial name="_PersonPartial" model="@person"/>
-                }
-            }
-        }
-    </div>
-}
+<div class="container">
+    <partial name="_PeoplePartial" model="@Model.People"/>
+</div>
+
 
 
 

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Person>
+
+<div class="row primary-bg">
+    <div class="col col-border col-padding">First Name</div>
+    <div class="col col-border col-padding">Last Name</div>
+    <div class="col col-border col-padding">Gender</div>
+    <div class="col col-border col-padding">Address</div>
+    <div class="col col-border col-padding">E-mail</div>
+</div>
+@{
+    foreach (var person in Model)
+    {
+        <partial name="_PersonPartial" model="@person"/>
+    }
+}
