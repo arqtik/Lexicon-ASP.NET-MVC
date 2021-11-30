@@ -19,7 +19,6 @@ namespace DevASPMVC.Models
         [Required]
         public Gender Gender { get; set; }
 
-        [MaxLength(255)]
         public City City { get; set; }
 
         [Required]
