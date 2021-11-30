@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using DevASPMVC.Models;
 
 namespace DevASPMVC.Models
 {
@@ -68,47 +69,11 @@ namespace DevASPMVC.Models
                 },
             };
 
-            /*
-            foreach (var country in countries)
-            {
-                country.Cities.AddRange(cities.Where(c => c.Country.Name.Equals(country.Name)));
-            }
-
-            foreach (var city in cities)
-            {
-                city.People.AddRange(people.Where(
-                        p => p.City.Country == city.Country &&
-                        p.City.Name.Equals(city.Name))
-                    );
-            }
-            */
-
             modelBuilder.Entity<Country>().HasData(countries);
             modelBuilder.Entity<City>().HasData(cities);
             modelBuilder.Entity<Person>().HasData(people);
-
-
-            /*
-            modelBuilder.Entity<Person>().HasData(new Person
-            {
-                ID = -1,
-                FirstName = "Johannes",
-                LastName = "Hugosson",
-                Gender = Gender.Male,
-                City = "Gustav gatan 21C 54412 Gävle",
-                Email = "johhug@domain.com"
-            });
-
-            modelBuilder.Entity<Person>().HasData(new Person
-            {
-                ID = -2,
-                FirstName = "Ingrid",
-                LastName = "Andersson",
-                Gender = Gender.Female,
-                City = "Tidnings gatan 3F 65351 Borås",
-                Email = "ingand@domain.com"
-            });
-            */
         }
+
+        public DbSet<DevASPMVC.Models.City> City { get; set; }
     }
 }
