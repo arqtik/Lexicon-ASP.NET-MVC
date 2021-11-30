@@ -16,6 +16,7 @@ function DeletePersonById(){
     $.post("/Ajax/RemovePersonById", { id: PersonIDInput.value }, null)
         .done(function (){
             $("#ErrorMessages").html("Successfully deleted person");
+            GetAllPeople();
         })
         .fail(function (){
             $("#ErrorMessages").html("Failed to delete person");
