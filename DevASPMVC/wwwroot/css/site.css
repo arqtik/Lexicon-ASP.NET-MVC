@@ -49,13 +49,13 @@ input[type="checkbox"].input-validation-error {
 
 nav {
     display: flex;
-    flex-grow: 1;
     justify-content: flex-end;
 }
 
 header {
     display: flex;
     background-color: darkgray;
+    width: 100vw;
 }
 
 .nav-list {
