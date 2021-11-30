@@ -20,7 +20,7 @@ namespace DevASPMVC.Models
         public Gender Gender { get; set; }
 
         [MaxLength(255)]
-        public string Address { get; set; }
+        public City City { get; set; }
 
         [Required]
         [MaxLength(255)]
