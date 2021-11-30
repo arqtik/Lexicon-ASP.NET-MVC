@@ -6,13 +6,11 @@ namespace DevASPMVC.Models
 {
     public class City
     {
-        [Key]
+        public int ID { get; set; }
         public string Name { get; set; }
 
-        [Key]
+        public int CountryID { get; set; }
         public Country Country { get; set; }
-
-        [Required]
         public List<Person> People { get; set; }
     }
 }

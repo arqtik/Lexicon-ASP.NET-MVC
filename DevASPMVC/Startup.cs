@@ -29,6 +29,7 @@ namespace DevASPMVC
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
+                options.EnableSensitiveDataLogging();
             });
 
             services.AddDistributedMemoryCache();

@@ -38,7 +38,7 @@ namespace DevASPMVC.Controllers
                         FirstName = cpvm.FirstName,
                         LastName = cpvm.LastName,
                         Gender = cpvm.Gender,
-                        Address = cpvm.Address,
+                        City = new City { Name = "DebugCity", Country = new Country { Name = "DebugCountry" } },
                         Email = cpvm.Email
                     }
                 );

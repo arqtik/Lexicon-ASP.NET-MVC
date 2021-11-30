@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DevASPMVC.Models
 {
@@ -13,13 +16,86 @@ namespace DevASPMVC.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Country>().HasKey(c => c.ID);
+            modelBuilder.Entity<Country>()
+                .HasMany(co => co.Cities)
+                .WithOne(city => city.Country)
+                .HasForeignKey(city => city.CountryID);
+
+            modelBuilder.Entity<City>().HasKey(city => city.ID);
+            modelBuilder.Entity<City>()
+                .HasMany(c => c.People)
+                .WithOne(p => p.City)
+                .HasForeignKey(p => p.CityID);
+
+
+            List<Country> countries = new List<Country>
+            {
+                new Country {ID = -1, Name = "Sweden"}
+            };
+
+            List<City> cities = new List<City>
+            {
+                new City {
+                    ID = -1,
+                    Name = "Stockholm",
+                    CountryID = -1
+                },
+                new City {
+                    ID = -2,
+                    Name = "Göteborg",
+                    CountryID = -1
+                }
+            };
+
+            List<Person> people = new List<Person>
+            {
+                new Person {
+                    ID = -1,
+                    FirstName = "Johannes",
+                    LastName = "Hugosson",
+                    Gender = Gender.Male,
+                    CityID = -1,
+                    Email = "johhug@domain.com"
+                },
+                new Person {
+                    ID = -2,
+                    FirstName = "Ingrid",
+                    LastName = "Andersson",
+                    Gender = Gender.Female,
+                    CityID = -2,
+                    Email = "ingand@domain.com"
+                },
+            };
+
+            /*
+            foreach (var country in countries)
+            {
+                country.Cities.AddRange(cities.Where(c => c.Country.Name.Equals(country.Name)));
+            }
+
+            foreach (var city in cities)
+            {
+                city.People.AddRange(people.Where(
+                        p => p.City.Country == city.Country &&
+                        p.City.Name.Equals(city.Name))
+                    );
+            }
+            */
+
+            modelBuilder.Entity<Country>().HasData(countries);
+            modelBuilder.Entity<City>().HasData(cities);
+            modelBuilder.Entity<Person>().HasData(people);
+
+
+            /*
             modelBuilder.Entity<Person>().HasData(new Person
             {
                 ID = -1,
                 FirstName = "Johannes",
                 LastName = "Hugosson",
                 Gender = Gender.Male,
-                Address = "Gustav gatan 21C 54412 Gävle",
+                City = "Gustav gatan 21C 54412 Gävle",
                 Email = "johhug@domain.com"
             });
 
@@ -29,10 +105,10 @@ namespace DevASPMVC.Models
                 FirstName = "Ingrid",
                 LastName = "Andersson",
                 Gender = Gender.Female,
-                Address = "Tidnings gatan 3F 65351 Borås",
+                City = "Tidnings gatan 3F 65351 Borås",
                 Email = "ingand@domain.com"
             });
-
+            */
         }
     }
 }

@@ -19,6 +19,7 @@ namespace DevASPMVC.Models
         [Required]
         public Gender Gender { get; set; }
 
+        public int CityID { get; set; }
         public City City { get; set; }
 
         [Required]
