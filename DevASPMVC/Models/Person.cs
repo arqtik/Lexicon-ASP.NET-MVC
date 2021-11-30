@@ -23,7 +23,6 @@ namespace DevASPMVC.Models
         public string Address { get; set; }
 
         [Required]
-        [Key]
         [MaxLength(255)]
         public string Email { get; set; }
     }
