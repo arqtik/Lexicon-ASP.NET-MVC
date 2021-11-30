@@ -9,10 +9,18 @@ namespace DevASPMVC.Controllers
 {
     public class PeopleController : Controller
     {
+        private readonly AppDbContext _dbContext;
+
+        public PeopleController(AppDbContext appDbContext)
+        {
+            _dbContext = appDbContext;
+        }
+
         public IActionResult Index()
         {
             PeopleViewModel pvm = new PeopleViewModel();
-            pvm.People = PeopleRepository.AllPeople;
+
+            pvm.People = _dbContext.People;
             
             return View(pvm);
         }
@@ -24,19 +32,22 @@ namespace DevASPMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                PeopleRepository.AddPerson(new Person()
-                {
-                    FirstName = cpvm.FirstName,
-                    LastName = cpvm.LastName,
-                    Gender = cpvm.Gender,
-                    Address = cpvm.Address,
-                    Email = cpvm.Email
-                });
+                _dbContext.People.Add(
+                    new Person()
+                    {
+                        FirstName = cpvm.FirstName,
+                        LastName = cpvm.LastName,
+                        Gender = cpvm.Gender,
+                        Address = cpvm.Address,
+                        Email = cpvm.Email
+                    }
+                );
+                _dbContext.SaveChanges();
             }
 
             PeopleViewModel pvm = new PeopleViewModel()
             {
-                People = PeopleRepository.AllPeople
+                People = _dbContext.People
             };
             
             return View("Index", pvm);
@@ -45,7 +56,8 @@ namespace DevASPMVC.Controllers
         [HttpGet]
         public IActionResult RemoveById(int id)
         {
-            PeopleRepository.RemovePerson(id);
+            _dbContext.People.Remove(_dbContext.People.Find(id));
+            _dbContext.SaveChanges();
 
             return RedirectToAction("Index");
         }
@@ -58,7 +70,7 @@ namespace DevASPMVC.Controllers
             if (ModelState.IsValid && !string.IsNullOrEmpty(peopleViewModel.SearchString))
             {
                 string search = peopleViewModel.SearchString;
-                pvm.People = PeopleRepository.AllPeople.Where(
+                pvm.People = _dbContext.People.Where(
                     p => p.FirstName.Contains(search) ||
                          p.LastName.Contains(search) ||
                          p.Address.Contains(search)

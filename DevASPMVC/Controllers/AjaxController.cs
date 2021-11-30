@@ -7,6 +7,13 @@ namespace DevASPMVC.Controllers
 {
     public class AjaxController : Controller
     {
+        private readonly AppDbContext _dbContext;
+
+        public AjaxController(AppDbContext appDbContext)
+        {
+            _dbContext = appDbContext;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -15,13 +22,13 @@ namespace DevASPMVC.Controllers
         [HttpGet]
         public IActionResult GetAllPeople()
         {
-            return PartialView("_PeoplePartial", PeopleRepository.AllPeople);
+            return PartialView("_PeoplePartial", _dbContext.People);
         }
 
         [HttpPost]
         public IActionResult GetPersonById(int id)
         {
-            Person person = PeopleRepository.AllPeople.FirstOrDefault(p => p.ID == id);
+            Person person = _dbContext.People.Find(id);
             List<Person> people = new List<Person>();
             if (person != null)
             {
@@ -33,10 +40,13 @@ namespace DevASPMVC.Controllers
         [HttpPost]
         public IActionResult RemovePersonById(int id)
         {
-            if (PeopleRepository.AllPeople.Exists(p => p.ID == id))
+            Person personToRemove = _dbContext.People.Find(id);
+
+            if (personToRemove != null)
             {
-                PeopleRepository.RemovePerson(id);
-                
+                _dbContext.Remove(personToRemove);
+                _dbContext.SaveChanges();
+
                 return StatusCode(200);
             }
 

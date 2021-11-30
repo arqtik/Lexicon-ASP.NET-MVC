@@ -9,7 +9,7 @@ namespace DevASPMVC.Models
         {
         }
 
-        DbSet<Person> People { get; set; }
+        public DbSet<Person> People { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
