@@ -73,7 +73,7 @@ namespace DevASPMVC.Controllers
                 pvm.People = _dbContext.People.Where(
                     p => p.FirstName.Contains(search) ||
                          p.LastName.Contains(search) ||
-                         p.Address.Contains(search)
+                         p.City.Name.Contains(search)
                 ).ToList();
             }
             
