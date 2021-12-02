@@ -10,6 +10,7 @@
     <Folder Include="wwwroot\images\" />
     <Folder Include="Views\Country\" />
     <Folder Include="Views\City\" />
+    <Folder Include="Views\Language\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,5 +33,6 @@
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
     <None Remove="Views\Country\" />
     <None Remove="Views\City\" />
+    <None Remove="Views\Language\" />
   </ItemGroup>
 </Project>

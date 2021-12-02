@@ -1,0 +1,23 @@
+﻿@model LanguageViewModel
+
+@{
+    ViewBag.Title = "People By Language";
+    Layout = "_Layout";
+}
+
+<h2>Language: @Model.Language</h2>
+
+<div class="container">
+    <div class="row primary-bg">
+        <div class="col col-border col-padding">PersonID</div>
+        <div class="col col-border col-padding">Name</div>
+    </div>
+
+    @foreach (var person in Model.People)
+    {
+        <div class="row">
+            <div class="col col-border col-padding">@person.ID</div>
+            <div class="col col-border col-padding">@person.FirstName @person.LastName</div>
+        </div>
+    }
+</div>

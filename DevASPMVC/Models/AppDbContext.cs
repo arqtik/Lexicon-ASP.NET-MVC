@@ -16,6 +16,8 @@ namespace DevASPMVC.Models
         public DbSet<Person> People { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<PersonLanguage> PersonLanguage { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,6 +32,16 @@ namespace DevASPMVC.Models
                 .HasMany(c => c.People)
                 .WithOne(p => p.City)
                 .HasForeignKey(p => p.CityID);
+
+            modelBuilder.Entity<PersonLanguage>().HasKey(pl => new { pl.LanguageID, pl.PersonID });
+            modelBuilder.Entity<PersonLanguage>()
+                .HasOne(pl => pl.Person)
+                .WithMany(p => p.Languages)
+                .HasForeignKey(pl => pl.PersonID);
+            modelBuilder.Entity<PersonLanguage>()
+                .HasOne(pl => pl.Language)
+                .WithMany(l => l.People)
+                .HasForeignKey(pl => pl.LanguageID);
 
 
             List<Country> countries = new List<Country>
@@ -71,9 +83,54 @@ namespace DevASPMVC.Models
                 },
             };
 
+            List<Language> languages = new List<Language>
+            {
+                new Language()
+                {
+                    ID = -1,
+                    Name = "Swedish"
+                },
+                new Language()
+                {
+                    ID = -2,
+                    Name = "English"
+                },
+                new Language()
+                {
+                    ID = -3,
+                    Name = "Russian"
+                },
+                new Language()
+                {
+                    ID = -4,
+                    Name = "Spanish"
+                }
+            };
+
+            List<PersonLanguage> personLanguages = new List<PersonLanguage>
+            {
+                new PersonLanguage()
+                {
+                    PersonID = -1,
+                    LanguageID = -1
+                },
+                new PersonLanguage()
+                {
+                    PersonID = -1,
+                    LanguageID = -3
+                },
+                new PersonLanguage()
+                {
+                    PersonID = -2,
+                    LanguageID = -1
+                }
+            };
+
             modelBuilder.Entity<Country>().HasData(countries);
             modelBuilder.Entity<City>().HasData(cities);
             modelBuilder.Entity<Person>().HasData(people);
+            modelBuilder.Entity<Language>().HasData(languages);
+            modelBuilder.Entity<PersonLanguage>().HasData(personLanguages);
         }
 
         public DbSet<DevASPMVC.Models.City> City { get; set; }

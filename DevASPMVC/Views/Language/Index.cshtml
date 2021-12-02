@@ -1,0 +1,25 @@
+﻿@model LanguageViewModel
+
+@{
+    ViewBag.Title = "Language Index";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="row primary-bg">
+        <div class="col col-border col-padding">Language ID</div>
+        <div class="col col-border col-padding">Language Name</div>
+        <div class="col col-border col-padding">Show People</div>
+    </div>
+
+    @foreach (var language in Model.Languages)
+    {
+        <div class="row">
+            <div class="col col-border col-padding">@language.ID</div>
+            <div class="col col-border col-padding">@language.Name</div>
+            <div class="col col-border col-padding">
+                <a href="@Url.Action("PeopleByLanguage", "Language", new { languageId = language.ID })" class="btn btn-primary">People</a>
+            </div>
+        </div>
+    }
+</div>

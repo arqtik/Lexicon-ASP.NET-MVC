@@ -9,10 +9,14 @@ namespace DevASPMVC.Models
     public class City
     {
         public int ID { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public int CountryID { get; set; }
         public Country Country { get; set; }
+
         public List<Person> People { get; set; }
 
         public override string ToString()

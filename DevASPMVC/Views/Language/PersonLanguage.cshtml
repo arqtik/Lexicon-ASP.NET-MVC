@@ -1,0 +1,39 @@
+﻿@model LanguageViewModel
+
+@{
+    ViewBag.Title = "Person Language";
+    Layout = "_Layout";
+}
+
+<h2>@Model.Person.FirstName @Model.Person.LastName Languages</h2>
+
+<div class="container">
+    <div class="row primary-bg">
+        <div class="col col-border col-padding">Language ID</div>
+        <div class="col col-border col-padding">Language Name</div>
+    </div>
+
+    @foreach (var language in Model.PersonLanguages)
+    {
+        <div class="row">
+            <div class="col col-border col-padding">@language.ID</div>
+            <div class="col col-border col-padding">@language</div>
+        </div>
+    }
+
+</div>
+
+<form asp-action="AddLanguageToPerson" asp-controller="Language" method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="number" asp-for="@Model.PersonId" value="@Model.Person.ID" hidden/>
+
+    @Html.Label("Available Languages", "Available Languages")
+    <select asp-for="@Model.LanguageId">
+        @foreach(var language in Model.Languages)
+        {
+            <option value="@language.ID">@language</option>
+        }
+    </select>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>

@@ -20,6 +20,7 @@ namespace DevASPMVC.Models
         [Required]
         public Gender Gender { get; set; }
 
+        [Required]
         public int CityID { get; set; }
         public City City { get; set; }
 
@@ -27,6 +28,6 @@ namespace DevASPMVC.Models
         [MaxLength(255)]
         public string Email { get; set; }
 
-        public List<Language> Languages { get; set; }
+        public List<PersonLanguage> Languages { get; set; }
     }
 }
