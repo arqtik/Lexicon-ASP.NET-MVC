@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DevASPMVC.Models
@@ -25,5 +26,7 @@ namespace DevASPMVC.Models
         [Required]
         [MaxLength(255)]
         public string Email { get; set; }
+
+        public List<Language> Languages { get; set; }
     }
 }
