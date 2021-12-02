@@ -20,10 +20,14 @@ namespace DevASPMVC.ViewModels
         [Display(Name = "Gender")]
         [Required(ErrorMessage = "Select gender")]
         public Gender Gender { get; set; }
-        
-        [Display(Name = "Address")]
-        [Required(ErrorMessage = "Enter an address")]
-        public string Address { get; set; }
+
+        [Display(Name = "Country")]
+        [Required(ErrorMessage = "Select a country")]
+        public int CountryID { get; set; }
+
+        [Display(Name = "City")]
+        [Required(ErrorMessage = "Select a city")]
+        public int CityID { get; set; }
         
         [Display(Name = "E-mail")]
         [Required(ErrorMessage = "Enter a valid E-mail")]

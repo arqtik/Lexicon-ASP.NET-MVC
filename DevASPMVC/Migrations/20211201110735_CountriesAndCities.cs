@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DevASPMVC.Migrations
 {
-    public partial class CountryCity : Migration
+    public partial class CountriesAndCities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,7 +18,7 @@ namespace DevASPMVC.Migrations
                 defaultValue: 0);
 
             migrationBuilder.CreateTable(
-                name: "Country",
+                name: "Countries",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -27,11 +27,11 @@ namespace DevASPMVC.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Country", x => x.ID);
+                    table.PrimaryKey("PK_Countries", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "City",
+                name: "Cities",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -41,27 +41,27 @@ namespace DevASPMVC.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_City", x => x.ID);
+                    table.PrimaryKey("PK_Cities", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_City_Country_CountryID",
+                        name: "FK_Cities_Countries_CountryID",
                         column: x => x.CountryID,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
-                table: "Country",
+                table: "Countries",
                 columns: new[] { "ID", "Name" },
                 values: new object[] { -1, "Sweden" });
 
             migrationBuilder.InsertData(
-                table: "City",
+                table: "Cities",
                 columns: new[] { "ID", "CountryID", "Name" },
                 values: new object[] { -1, -1, "Stockholm" });
 
             migrationBuilder.InsertData(
-                table: "City",
+                table: "Cities",
                 columns: new[] { "ID", "CountryID", "Name" },
                 values: new object[] { -2, -1, "Göteborg" });
 
@@ -85,15 +85,15 @@ namespace DevASPMVC.Migrations
                 column: "CityID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_City_CountryID",
-                table: "City",
+                name: "IX_Cities_CountryID",
+                table: "Cities",
                 column: "CountryID");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_People_City_CityID",
+                name: "FK_People_Cities_CityID",
                 table: "People",
                 column: "CityID",
-                principalTable: "City",
+                principalTable: "Cities",
                 principalColumn: "ID",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -101,14 +101,14 @@ namespace DevASPMVC.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_People_City_CityID",
+                name: "FK_People_Cities_CityID",
                 table: "People");
 
             migrationBuilder.DropTable(
-                name: "City");
+                name: "Cities");
 
             migrationBuilder.DropTable(
-                name: "Country");
+                name: "Countries");
 
             migrationBuilder.DropIndex(
                 name: "IX_People_CityID",

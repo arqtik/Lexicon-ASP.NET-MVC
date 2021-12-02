@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevASPMVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211130161211_CountryCity")]
-    partial class CountryCity
+    [Migration("20211201110735_CountriesAndCities")]
+    partial class CountriesAndCities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,7 +34,7 @@ namespace DevASPMVC.Migrations
 
                     b.HasIndex("CountryID");
 
-                    b.ToTable("City");
+                    b.ToTable("Cities");
 
                     b.HasData(
                         new
@@ -62,7 +62,7 @@ namespace DevASPMVC.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Country");
+                    b.ToTable("Countries");
 
                     b.HasData(
                         new

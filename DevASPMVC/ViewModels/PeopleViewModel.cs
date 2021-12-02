@@ -12,5 +12,7 @@ namespace DevASPMVC.ViewModels
         public string SearchString { get; set; }
         
         public CreatePersonViewModel CreatePerson { get; set; }
+        public CountryViewModel CountryViewModel { get; set; }
+        public CityViewModel CityViewModel { get; set; }
     }
 }

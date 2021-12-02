@@ -32,7 +32,7 @@ namespace DevASPMVC.Migrations
 
                     b.HasIndex("CountryID");
 
-                    b.ToTable("City");
+                    b.ToTable("Cities");
 
                     b.HasData(
                         new
@@ -60,7 +60,7 @@ namespace DevASPMVC.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Country");
+                    b.ToTable("Countries");
 
                     b.HasData(
                         new

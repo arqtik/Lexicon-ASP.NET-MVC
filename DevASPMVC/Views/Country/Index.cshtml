@@ -1,0 +1,23 @@
+﻿@model CountryViewModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Country Index";
+}
+
+<div class="container">
+    <div class="row primary-bg">
+        <div class="col col-border col-padding">ID</div>
+        <div class="col col-border col-padding">Name</div>
+    </div>
+
+    @{
+        foreach (Country country in Model.Countries)
+        {
+            <div class="row">
+                <div class="col col-border col-padding">@country.ID</div>
+                <div class="col col-border col-padding">@country.Name</div>
+            </div>
+        }
+    }
+</div>

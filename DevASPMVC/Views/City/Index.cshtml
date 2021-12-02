@@ -1,0 +1,27 @@
+﻿@model CityViewModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "City Index";
+}
+
+<div class="container">
+    <div class="row primary-bg">
+        <div class="col col-border col-padding">ID</div>
+        <div class="col col-border col-padding">Name</div>
+        <div class="col col-border col-padding">CountryID</div>
+        <div class="col col-border col-padding">Country Name</div>
+    </div>
+
+    @{
+        foreach (City city in Model.Cities)
+        {
+        <div class="row">
+            <div class="col col-border col-padding">@city.ID</div>
+            <div class="col col-border col-padding">@city.Name</div>
+            <div class="col col-border col-padding">@city.CountryID</div>
+            <div class="col col-border col-padding">@city.Country</div>
+        </div>
+        }
+    }
+</div>

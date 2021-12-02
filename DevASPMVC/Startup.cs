@@ -79,6 +79,14 @@ namespace DevASPMVC
                     name: "ajax",
                     pattern: "ajax",
                     defaults: new {controller = "Ajax", action = "Index"});
+                endpoints.MapControllerRoute(
+                    name: "city",
+                    pattern: "city",
+                    defaults: new {controller = "city", action = "index"});
+                endpoints.MapControllerRoute(
+                    name: "country",
+                    pattern: "country",
+                    defaults: new { controller = "country", action = "index" });
             });
         }
     }

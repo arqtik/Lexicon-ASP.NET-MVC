@@ -8,38 +8,50 @@
 
 <h2>People Index</h2>
 
+<a href="@Url.Action("Index", "Country")" class="btn btn-primary">Countries</a>
+<a href="@Url.Action("Index", "City")" class="btn btn-primary">Cities</a>
+
+
 <form asp-controller="People" asp-action="Create" method="post" class="flex-vertical rounded-box primary-bg">
     <h3>Create new person</h3>
     @Html.AntiForgeryToken()
     @Html.LabelFor(model => model.CreatePerson.FirstName)
     @Html.EditorFor(model => model.CreatePerson.FirstName)
     @Html.ValidationMessageFor(model => model.CreatePerson.FirstName)
-    
+
     @Html.LabelFor(model => model.CreatePerson.LastName)
     @Html.EditorFor(model => model.CreatePerson.LastName)
     @Html.ValidationMessageFor(model => model.CreatePerson.LastName)
-    
+
     @Html.LabelFor(model => model.CreatePerson.Gender)
     <select asp-for="CreatePerson.Gender" asp-items="Html.GetEnumSelectList<Gender>()"></select>
     @Html.ValidationMessageFor(model => model.CreatePerson.Gender)
 
-    @Html.LabelFor(model => model.CreatePerson.Address)
-    @Html.EditorFor(model => model.CreatePerson.Address)
-    @Html.ValidationMessageFor(model => model.CreatePerson.Address)
-    
+    @Html.LabelFor(model => model.CreatePerson.CountryID)
+    <select asp-for="CreatePerson.CountryID" onchange="GetCitiesInCountry()">
+        <option>Select a country</option>
+        @foreach (Country country in Model.CountryViewModel.Countries)
+        {
+            <option value="@country.ID">@country</option>
+        }
+    </select>
+
+    @Html.LabelFor(model => model.CreatePerson.CityID)
+    <select asp-for="CreatePerson.CityID"></select>
+
     @Html.LabelFor(model => model.CreatePerson.Email)
     @Html.EditorFor(model => model.CreatePerson.Email)
     @Html.ValidationMessageFor(model => model.CreatePerson.Email)
-    
-    <input type="submit" value="Create Person"/>
+
+    <input type="submit" value="Create Person" />
 </form>
 
-<form asp-controller="People" asp-action="Search" method="get" >
-    <input asp-for="@Model.SearchString" type="search" name="SearchString" id="SearchString" placeholder="Search for people" class="search-box"/>
+<form asp-controller="People" asp-action="Search" method="get">
+    <input asp-for="@Model.SearchString" type="search" name="SearchString" id="SearchString" placeholder="Search for people" class="search-box" />
 </form>
 
 <div class="container">
-    <partial name="_PeoplePartial" model="@Model.People"/>
+    <partial name="_PeoplePartial" model="@Model.People" />
 </div>
 
 

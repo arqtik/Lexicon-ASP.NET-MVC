@@ -22,3 +22,15 @@ function DeletePersonById(){
             $("#ErrorMessages").html("Failed to delete person");
         });
 }
+
+function GetCitiesInCountry() {
+    let citySelect = $("#CreatePerson_CityID");
+    let countrySelect = $("#CreatePerson_CountryID");
+
+    citySelect.empty();
+
+    $.get('/City/GetCities', { countryId: countrySelect.val() }, function (data) {
+        citySelect.html(data);
+    });
+    
+}

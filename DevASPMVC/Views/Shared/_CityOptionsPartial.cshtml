@@ -1,0 +1,5 @@
+﻿@model CityViewModel
+
+@foreach(City city in Model.Cities){
+    <option value="@city.ID">@city</option>
+}

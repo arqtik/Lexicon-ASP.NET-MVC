@@ -19,8 +19,18 @@ namespace DevASPMVC.Controllers
         public IActionResult Index()
         {
             PeopleViewModel pvm = new PeopleViewModel();
+            pvm.CityViewModel = new CityViewModel() { Cities = _dbContext.Cities.ToList() };
 
-            pvm.People = _dbContext.People;
+            pvm.People = _dbContext.People.ToList();
+
+            foreach (var person in pvm.People)
+            {
+                person.City = pvm.CityViewModel.Cities.FirstOrDefault(c => c.ID == person.CityID);
+            }
+
+            pvm.CountryViewModel = new CountryViewModel() {
+                Countries = _dbContext.Countries
+            };
             
             return View(pvm);
         }
@@ -38,19 +48,14 @@ namespace DevASPMVC.Controllers
                         FirstName = cpvm.FirstName,
                         LastName = cpvm.LastName,
                         Gender = cpvm.Gender,
-                        City = new City { Name = "DebugCity", Country = new Country { Name = "DebugCountry" } },
+                        CityID = cpvm.CityID,
                         Email = cpvm.Email
                     }
                 );
                 _dbContext.SaveChanges();
             }
 
-            PeopleViewModel pvm = new PeopleViewModel()
-            {
-                People = _dbContext.People
-            };
-            
-            return View("Index", pvm);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
