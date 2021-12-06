@@ -33,7 +33,11 @@
                 <a asp-controller="Ajax" asp-action="Index">Ajax</a>
             </li>
         </ul>
+
+        <partial name="_LoginPartial" />
     </nav>
+
+    
 </header>
 
 
@@ -52,6 +56,8 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"></script>
 <script src="js/site.js"></script>
+
+@RenderSection("Scripts", false);
 
 
 </body>
