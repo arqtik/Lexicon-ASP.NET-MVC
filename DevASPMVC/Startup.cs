@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace DevASPMVC
 {
@@ -31,6 +32,18 @@ namespace DevASPMVC
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
                 options.EnableSensitiveDataLogging();
             });
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders()
+                .AddDefaultUI();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+            });
+
+            services.AddRazorPages();
 
             services.AddDistributedMemoryCache();
 
@@ -57,6 +70,11 @@ namespace DevASPMVC
             app.UseStaticFiles();
             
             app.UseSession();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            
 
             app.UseEndpoints(endpoints =>
             {
@@ -87,6 +105,7 @@ namespace DevASPMVC
                     name: "country",
                     pattern: "country",
                     defaults: new { controller = "country", action = "index" });
+                endpoints.MapRazorPages();
             });
         }
     }
