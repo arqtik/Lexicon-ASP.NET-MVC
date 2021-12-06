@@ -4,10 +4,12 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using DevASPMVC.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace DevASPMVC.Models
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -18,9 +20,12 @@ namespace DevASPMVC.Models
         public DbSet<City> Cities { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<PersonLanguage> PersonLanguage { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Country>().HasKey(c => c.ID);
             modelBuilder.Entity<Country>()
                 .HasMany(co => co.Cities)
@@ -132,7 +137,5 @@ namespace DevASPMVC.Models
             modelBuilder.Entity<Language>().HasData(languages);
             modelBuilder.Entity<PersonLanguage>().HasData(personLanguages);
         }
-
-        public DbSet<DevASPMVC.Models.City> City { get; set; }
     }
 }
