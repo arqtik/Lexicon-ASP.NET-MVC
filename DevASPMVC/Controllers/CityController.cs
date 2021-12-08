@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using DevASPMVC.Models;
 using DevASPMVC.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,6 +21,7 @@ namespace DevASPMVC.Controllers
             _context = appDbContext;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             CityViewModel cvm = new CityViewModel()
@@ -37,6 +39,7 @@ namespace DevASPMVC.Controllers
         
 
         [HttpGet]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult GetCities(int countryId)
         {
             CityViewModel cvm = new CityViewModel()
@@ -44,8 +47,6 @@ namespace DevASPMVC.Controllers
                 Cities = _context.Cities.Where(
                     city => city.CountryID == countryId).ToList()
             };
-
-
 
             return PartialView("_CityOptionsPartial", cvm);
         }

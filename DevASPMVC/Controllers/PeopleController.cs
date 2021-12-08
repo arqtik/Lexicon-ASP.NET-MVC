@@ -2,11 +2,13 @@
 using System.Linq;
 using DevASPMVC.Models;
 using DevASPMVC.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace DevASPMVC.Controllers
 {
+    [Authorize(Roles = "Admin, User")]
     public class PeopleController : Controller
     {
         private readonly AppDbContext _dbContext;
@@ -59,6 +61,7 @@ namespace DevASPMVC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult RemoveById(int id)
         {
             _dbContext.People.Remove(_dbContext.People.Find(id));

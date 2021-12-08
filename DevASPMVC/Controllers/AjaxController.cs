@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DevASPMVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevASPMVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AjaxController : Controller
     {
         private readonly AppDbContext _dbContext;

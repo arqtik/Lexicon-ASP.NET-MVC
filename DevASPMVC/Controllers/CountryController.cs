@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevASPMVC.Models;
 using DevASPMVC.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevASPMVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CountryController : Controller
     {
         private readonly AppDbContext _context;

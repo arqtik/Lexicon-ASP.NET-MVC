@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using DevASPMVC.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.AspNetCore.Identity;
 
 namespace DevASPMVC.Models
 {
@@ -136,6 +137,41 @@ namespace DevASPMVC.Models
             modelBuilder.Entity<Person>().HasData(people);
             modelBuilder.Entity<Language>().HasData(languages);
             modelBuilder.Entity<PersonLanguage>().HasData(personLanguages);
+
+            string adminRoleId = Guid.NewGuid().ToString();
+            string adminUserId = Guid.NewGuid().ToString();
+
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole {
+                Id = adminRoleId,
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            }, new IdentityRole {
+                Id = Guid.NewGuid().ToString(),
+                Name = "User",
+                NormalizedName = "USER"
+            });
+
+            PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
+
+            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser
+            {
+                Id = adminUserId,
+                UserName = "admin@admin.com",
+                NormalizedUserName = "ADMIN@ADMIN.COM",
+                Email = "admin@admin.com",
+                NormalizedEmail = "ADMIN@ADMIN.COM",
+                PasswordHash = passwordHasher.HashPassword(null, "password"),
+                FirstName = "Admin",
+                LastName = "Adminsson",
+                BirthDate = DateTime.Today
+            });
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = adminRoleId,
+                UserId = adminUserId
+            });
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevASPMVC.Models;
 using DevASPMVC.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,7 @@ namespace DevASPMVC.Controllers
             _context = appDbContext;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             LanguageViewModel lvm = new LanguageViewModel()
@@ -31,6 +33,7 @@ namespace DevASPMVC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult PeopleByLanguage(int languageId)
         {
             LanguageViewModel lvm = new LanguageViewModel()
@@ -43,6 +46,7 @@ namespace DevASPMVC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult PersonLanguage(int personId)
         {
             LanguageViewModel lvm = new LanguageViewModel()
@@ -56,6 +60,7 @@ namespace DevASPMVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult AddLanguageToPerson(LanguageViewModel languageViewModel)
         {
             if (ModelState.IsValid)
