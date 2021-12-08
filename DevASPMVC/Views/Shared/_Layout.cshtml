@@ -26,12 +26,20 @@
             <li>
                 <a asp-controller="Home" asp-action="Contact">Contact</a>
             </li>
-            <li>
-                <a asp-controller="People" asp-action="Index">People</a>
-            </li>
-            <li>
-                <a asp-controller="Ajax" asp-action="Index">Ajax</a>
-            </li>
+
+            @if (User.IsInRole("Admin") || User.IsInRole("User"))
+            {
+                <li>
+                    <a asp-controller="People" asp-action="Index">People</a>
+                </li>
+            }
+
+            @if (User.IsInRole("Admin"))
+            {
+                <li>
+                    <a asp-controller="Ajax" asp-action="Index">Ajax</a>
+                </li>
+            }
 
             <partial name="_LoginPartial" />
 

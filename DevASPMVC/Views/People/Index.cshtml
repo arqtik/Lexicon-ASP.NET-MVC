@@ -7,10 +7,12 @@
 }
 
 <h2>People Index</h2>
-
-<a href="@Url.Action("Index", "Country")" class="btn btn-primary">Countries</a>
-<a href="@Url.Action("Index", "City")" class="btn btn-primary">Cities</a>
-<a href="@Url.Action("Index", "Language")" class="btn btn-primary">Languages</a>
+@if (User.IsInRole("Admin"))
+{
+    <a href="@Url.Action("Index", "Country")" class="btn btn-primary">Countries</a>
+    <a href="@Url.Action("Index", "City")" class="btn btn-primary">Cities</a>
+    <a href="@Url.Action("Index", "Language")" class="btn btn-primary">Languages</a>
+}
 
 
 <form asp-controller="People" asp-action="Create" method="post" class="flex-vertical rounded-box primary-bg">
