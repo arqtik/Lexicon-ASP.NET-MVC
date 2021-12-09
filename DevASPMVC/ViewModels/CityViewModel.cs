@@ -7,5 +7,7 @@ namespace DevASPMVC.ViewModels
     public class CityViewModel
     {
         public IEnumerable<City> Cities { get; set; }
+
+        public CreateCityViewModel CreateCity { get; set; }
     }
 }

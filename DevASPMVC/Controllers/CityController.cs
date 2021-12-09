@@ -8,7 +8,6 @@ using DevASPMVC.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace DevASPMVC.Controllers
 {
@@ -36,7 +35,32 @@ namespace DevASPMVC.Controllers
 
             return View(cvm);
         }
-        
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public IActionResult Remove(int cityId)
+        {
+            _context.Cities.Remove(_context.Cities.FirstOrDefault(c => c.ID == cityId));
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(CityViewModel cityViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Cities.Add(new City
+                {
+                    Name = cityViewModel.CreateCity.CityName,
+                    CountryID = cityViewModel.CreateCity.CountryID
+                });
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
 
         [HttpGet]
         [Authorize(Roles = "Admin, User")]
