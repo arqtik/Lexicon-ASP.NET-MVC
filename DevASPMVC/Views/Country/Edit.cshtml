@@ -1,0 +1,23 @@
+﻿@model Country
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Editing " + Model.Name;
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <form asp-controller="Country" asp-action="Edit" method="post" class="flex-vertical rounded-box primary-bg">
+        @Html.AntiForgeryToken()
+
+        <label>Country ID</label>
+        @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @readonly = "readonly" } })
+
+        <label>Country Name</label>
+        @Html.EditorFor(model => model.Name, new { @Value = Model.Name })
+
+        <input type="submit" value="Edit Country" />
+    </form>
+
+    <a href="@Url.Action("Remove", "Country", new { countryId = Model.ID })" class="btn btn-danger">Remove Country</a>
+}

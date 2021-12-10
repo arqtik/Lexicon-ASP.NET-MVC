@@ -11,19 +11,19 @@ namespace DevASPMVC.Controllers
     [Authorize(Roles = "Admin, User")]
     public class PeopleController : Controller
     {
-        private readonly AppDbContext _dbContext;
+        private readonly AppDbContext _context;
 
         public PeopleController(AppDbContext appDbContext)
         {
-            _dbContext = appDbContext;
+            _context = appDbContext;
         }
 
         public IActionResult Index()
         {
             PeopleViewModel pvm = new PeopleViewModel();
-            pvm.CityViewModel = new CityViewModel() { Cities = _dbContext.Cities.ToList() };
+            pvm.CityViewModel = new CityViewModel() { Cities = _context.Cities.ToList() };
 
-            pvm.People = _dbContext.People.ToList();
+            pvm.People = _context.People.ToList();
 
             foreach (var person in pvm.People)
             {
@@ -31,7 +31,7 @@ namespace DevASPMVC.Controllers
             }
 
             pvm.CountryViewModel = new CountryViewModel() {
-                Countries = _dbContext.Countries
+                Countries = _context.Countries
             };
             
             return View(pvm);
@@ -44,7 +44,7 @@ namespace DevASPMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                _dbContext.People.Add(
+                _context.People.Add(
                     new Person()
                     {
                         FirstName = cpvm.FirstName,
@@ -54,18 +54,46 @@ namespace DevASPMVC.Controllers
                         Email = cpvm.Email
                     }
                 );
-                _dbContext.SaveChanges();
+                _context.SaveChanges();
             }
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
+        public IActionResult Edit(int personId)
+        {
+            Person person = _context.People.FirstOrDefault(p => p.ID == personId);
+
+            EditPersonViewModel editPersonViewModel = new EditPersonViewModel
+            {
+                Person = person,
+                Cities = _context.Cities.ToList(),
+                Countries = _context.Countries.ToList(),
+                PersonCountryID = _context.Countries.FirstOrDefault(c => c.ID == person.City.CountryID).ID
+            };
+
+            return View(editPersonViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EditPersonViewModel editPersonViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.People.Update(editPersonViewModel.Person);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult RemoveById(int id)
         {
-            _dbContext.People.Remove(_dbContext.People.Find(id));
-            _dbContext.SaveChanges();
+            _context.People.Remove(_context.People.Find(id));
+            _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
@@ -78,7 +106,7 @@ namespace DevASPMVC.Controllers
             if (ModelState.IsValid && !string.IsNullOrEmpty(peopleViewModel.SearchString))
             {
                 string search = peopleViewModel.SearchString;
-                pvm.People = _dbContext.People.Where(
+                pvm.People = _context.People.Where(
                     p => p.FirstName.Contains(search) ||
                          p.LastName.Contains(search) ||
                          p.City.Name.Contains(search)

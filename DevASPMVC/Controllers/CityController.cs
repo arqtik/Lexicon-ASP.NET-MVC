@@ -25,7 +25,8 @@ namespace DevASPMVC.Controllers
         {
             CityViewModel cvm = new CityViewModel()
             {
-                Cities = _context.Cities.ToList()
+                Cities = _context.Cities.ToList(),
+                CreateCity = new CreateCityViewModel { AvailableCountries = _context.Countries.ToList()}
             };
 
             foreach (var city in cvm.Cities)
@@ -37,10 +38,11 @@ namespace DevASPMVC.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpPost]
+        [HttpGet]
         public IActionResult Remove(int cityId)
         {
             _context.Cities.Remove(_context.Cities.FirstOrDefault(c => c.ID == cityId));
+            _context.SaveChanges();
 
             return RedirectToAction(nameof(Index));
         }
@@ -57,6 +59,33 @@ namespace DevASPMVC.Controllers
                     Name = cityViewModel.CreateCity.CityName,
                     CountryID = cityViewModel.CreateCity.CountryID
                 });
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int cityId)
+        {
+            City city = _context.Cities.FirstOrDefault(c => c.ID == cityId);
+
+            EditCityViewModel editCityViewModel = new EditCityViewModel
+            {
+                City = city,
+                AvailableCountries = _context.Countries.ToList()
+            };
+
+            return View(editCityViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EditCityViewModel editCityViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Cities.Update(editCityViewModel.City);
+                _context.SaveChanges();
             }
 
             return RedirectToAction(nameof(Index));

@@ -1,0 +1,38 @@
+﻿@model EditCityViewModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Editing " + Model.City.Name;
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <form asp-controller="City" asp-action="Edit" method="post" class="flex-vertical rounded-box primary-bg">
+        @Html.AntiForgeryToken()
+
+        <label>City ID</label>
+        @Html.EditorFor(model => model.City.ID, new { htmlAttributes = new { @readonly = "readonly" } })
+
+        <label>City Name</label>
+        @Html.EditorFor(model => model.City.Name, new { @Value = Model.City.Name })
+
+        <label>Country of City</label>
+        <select asp-for="@Model.City.CountryID">
+            @foreach (var country in Model.AvailableCountries)
+            {
+                if (country.ID == Model.City.CountryID)
+                {
+                    <option value="@country.ID" selected>@country</option>
+                }
+                else
+                {
+                    <option value="@country.ID">@country</option>
+                }
+            }
+        </select>
+
+        <input type="submit" value="Edit City" />
+    </form>
+
+    <a href="@Url.Action("Remove", "City", new { cityId = Model.City.ID })" class="btn btn-danger">Remove City</a>
+}

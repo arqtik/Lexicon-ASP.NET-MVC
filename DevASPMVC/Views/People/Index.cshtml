@@ -31,7 +31,7 @@
     @Html.ValidationMessageFor(model => model.CreatePerson.Gender)
 
     @Html.LabelFor(model => model.CreatePerson.CountryID)
-    <select asp-for="CreatePerson.CountryID" onchange="GetCitiesInCountry()">
+    <select data-select="country" asp-for="CreatePerson.CountryID" onchange="GetCitiesInCountry()">
         <option>Select a country</option>
         @foreach (Country country in Model.CountryViewModel.Countries)
         {
@@ -40,7 +40,7 @@
     </select>
 
     @Html.LabelFor(model => model.CreatePerson.CityID)
-    <select asp-for="CreatePerson.CityID"></select>
+    <select data-select="city" asp-for="CreatePerson.CityID"></select>
 
     @Html.LabelFor(model => model.CreatePerson.Email)
     @Html.EditorFor(model => model.CreatePerson.Email)

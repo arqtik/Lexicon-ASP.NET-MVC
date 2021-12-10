@@ -24,8 +24,8 @@ function DeletePersonById(){
 }
 
 function GetCitiesInCountry() {
-    let citySelect = $("#CreatePerson_CityID");
-    let countrySelect = $("#CreatePerson_CountryID");
+    let citySelect = $("select[data-select='city']");
+    let countrySelect = $("select[data-select='country']");
 
     citySelect.empty();
 

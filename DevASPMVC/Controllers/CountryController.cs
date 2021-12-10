@@ -28,5 +28,50 @@ namespace DevASPMVC.Controllers
 
             return View(cvm);
         }
+
+        [HttpGet]
+        public IActionResult Remove(int countryId)
+        {
+            _context.Countries.Remove(_context.Countries.FirstOrDefault(c => c.ID == countryId));
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(CountryViewModel countryViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Countries.Add(new Country
+                {
+                    Name = countryViewModel.CreateCountry.CountryName
+                });
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int countryId)
+        {
+            Country country = _context.Countries.FirstOrDefault(c => c.ID == countryId);
+
+            return View(country);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Country country)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Countries.Update(country);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -5,10 +5,23 @@
     ViewData["Title"] = "Country Index";
 }
 
+@if (User.IsInRole("Admin"))
+{
+    <form asp-controller="Country" asp-action="Create" method="post" class="flex-vertical rounded-box primary-bg">
+        @Html.AntiForgeryToken()
+
+        @Html.LabelFor(model => model.CreateCountry.CountryName)
+        @Html.EditorFor(model => model.CreateCountry.CountryName)
+
+        <input type="submit" value="Create Country" />
+    </form>
+}
+
 <div class="container">
     <div class="row primary-bg">
         <div class="col col-border col-padding">ID</div>
         <div class="col col-border col-padding">Name</div>
+        <div class="col-2 col-border col-padding">Remove</div>
     </div>
 
     @{
@@ -17,6 +30,7 @@
             <div class="row">
                 <div class="col col-border col-padding">@country.ID</div>
                 <div class="col col-border col-padding">@country.Name</div>
+                <div class="col-2 col-border col-padding"><a href="@Url.Action("Edit", "Country", new { countryId = country.ID })" class="btn btn-danger">Edit</a></div>
             </div>
         }
     }

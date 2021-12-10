@@ -5,23 +5,46 @@
     ViewData["Title"] = "City Index";
 }
 
+@if (User.IsInRole("Admin"))
+{
+    <form asp-controller="City" asp-action="Create" method="post" class="flex-vertical rounded-box primary-bg">
+        @Html.AntiForgeryToken()
+
+        @Html.LabelFor(model => model.CreateCity.CityName)
+        @Html.EditorFor(model => model.CreateCity.CityName)
+
+        @Html.LabelFor(model => model.CreateCity.CountryID)
+        <select asp-for="CreateCity.CountryID">
+            @foreach (Country country in Model.CreateCity.AvailableCountries)
+            {
+                <option value="@country.ID">@country</option>
+            }
+        </select>
+
+        <input type="submit" value="Create City" />
+    </form>
+}
+
+
 <div class="container">
     <div class="row primary-bg">
         <div class="col col-border col-padding">ID</div>
         <div class="col col-border col-padding">Name</div>
         <div class="col col-border col-padding">CountryID</div>
         <div class="col col-border col-padding">Country Name</div>
+        <div class="col-2 col-border col-padding">Edit</div>
     </div>
 
     @{
         foreach (City city in Model.Cities)
         {
-        <div class="row">
-            <div class="col col-border col-padding">@city.ID</div>
-            <div class="col col-border col-padding">@city.Name</div>
-            <div class="col col-border col-padding">@city.CountryID</div>
-            <div class="col col-border col-padding">@city.Country</div>
-        </div>
+            <div class="row">
+                <div class="col col-border col-padding">@city.ID</div>
+                <div class="col col-border col-padding">@city.Name</div>
+                <div class="col col-border col-padding">@city.CountryID</div>
+                <div class="col col-border col-padding">@city.Country</div>
+                <div class="col-2 col-border col-padding"><a href="@Url.Action("Edit", "City", new { cityId = city.ID })" class="btn btn-danger">Edit</a></div>
+            </div>
         }
     }
 </div>

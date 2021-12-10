@@ -1,0 +1,75 @@
+﻿@model EditPersonViewModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = $"Editing {Model.Person.FirstName} {Model.Person.LastName}";
+}
+
+@if (User.IsInRole("Admin"))
+{
+<form asp-controller="People" asp-action="Edit" method="post" class="flex-vertical rounded-box primary-bg">
+    @Html.AntiForgeryToken()
+
+    <label>ID</label>
+    @Html.EditorFor(model => model.Person.ID, new { htmlAttributes = new { @readonly = "readonly" } })
+
+    <label>First Name</label>
+    @Html.EditorFor(model => model.Person.FirstName, new { @Value = Model.Person.FirstName })
+    <label>Last Name</label>
+    @Html.EditorFor(model => model.Person.LastName, new { @Value = Model.Person.LastName })
+
+    <label>Gender</label>
+    <select asp-for="Person.Gender">
+        @foreach (int gender in Enum.GetValues(typeof(Gender)))
+        {
+            if (Model.Person.Gender == (Gender)gender)
+            {
+                <option value="@gender" selected>@Enum.GetName(typeof(Gender), gender)</option>
+            }
+            else
+            {
+                <option value="@gender">@Enum.GetName(typeof(Gender), gender)</option>
+            }
+        }
+    </select>
+
+
+    <label>Country</label>
+    <select data-select="country" onchange="GetCitiesInCountry()">
+        @foreach (Country country in Model.Countries)
+        {
+            if (country.ID == Model.PersonCountryID)
+            {
+                <option value="@country.ID" selected>@country</option>
+
+            }
+            else
+            {
+                <option value="@country.ID">@country</option>
+            }
+        }
+    </select>
+
+    <label>City</label>
+    <select data-select="city" asp-for="Person.CityID">
+        @foreach (City city in Model.Cities)
+        {
+            if (Model.Person.CityID == city.ID)
+            {
+                <option value="@city.ID" selected>@city</option>
+            }
+            else
+            {
+                <option value="@city.ID">@city</option>
+            }
+        }
+    </select>
+
+    <label>E-mail</label>
+    @Html.EditorFor(model => model.Person.Email, new { @Value = Model.Person.Email })
+
+    <input type="submit" value="Edit Person" />
+</form>
+
+    <a href="@Url.Action("RemoveById", "People", new { id = Model.Person.ID })" class="btn btn-danger">Remove Person</a>
+}
