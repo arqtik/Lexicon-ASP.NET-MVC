@@ -52,12 +52,6 @@ nav {
     justify-content: flex-end;
 }
 
-header {
-    display: flex;
-    background-color: darkgray;
-    width: 100vw;
-}
-
 .nav-list {
     display: flex;
     justify-content: space-evenly;
