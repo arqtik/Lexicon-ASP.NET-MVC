@@ -99,21 +99,28 @@ namespace DevASPMVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Search(PeopleViewModel peopleViewModel)
+        public IActionResult Search(string query)
         {
-            PeopleViewModel pvm = new PeopleViewModel();
+            List<Person> people = new List<Person>();
             
-            if (ModelState.IsValid && !string.IsNullOrEmpty(peopleViewModel.SearchString))
+            if (ModelState.IsValid)
             {
-                string search = peopleViewModel.SearchString;
-                pvm.People = _context.People.Where(
-                    p => p.FirstName.Contains(search) ||
-                         p.LastName.Contains(search) ||
-                         p.City.Name.Contains(search)
-                ).ToList();
+                if (string.IsNullOrEmpty(query))
+                {
+                    people = _context.People.ToList();
+                }
+
+                else
+                {
+                    people = _context.People.Where(
+                        p => p.FirstName.Contains(query) ||
+                             p.LastName.Contains(query) ||
+                             p.City.Name.Contains(query)
+                    ).ToList();
+                }
             }
             
-            return View("Index", pvm);
+            return PartialView("_PeoplePartial", people);
         }
     }
 }

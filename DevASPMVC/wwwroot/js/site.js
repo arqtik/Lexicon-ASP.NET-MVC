@@ -34,3 +34,12 @@ function GetCitiesInCountry() {
     });
     
 }
+
+$("#PeopleSearch").submit(function(e){
+    e.preventDefault();
+    let queryString = $("#PeopleSearch > input:first")[0].value;
+
+    $.get("/People/Search", { query: queryString }, function (data) {
+        $("#PeopleList").html(data);
+    });
+});
