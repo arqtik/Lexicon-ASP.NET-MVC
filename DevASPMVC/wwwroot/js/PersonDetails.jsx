@@ -1,4 +1,6 @@
-﻿class DeletePersonButton extends React.Component {
+﻿import Error from "./ReactUtilities/Error.jsx";
+
+class DeletePersonButton extends React.Component {
     render() {
         return (
             <button onClick={() => this.props.onPersonDelete(this.props.personId)}>Delete Person</button>
@@ -73,9 +75,9 @@ class PersonDetails extends React.Component {
     }
     
     render() {
-        const { error, isLoaded, person, status} = this.state;
+        const { error, isLoaded, person} = this.state;
         if (error) {
-            return <div className="p-3 mb-2 bg-danger text-white">Error: {this.state.error.message}</div>
+            <Error message={error.message}/>
         } 
         else if (!isLoaded){
             return <div>Loading Person...</div>

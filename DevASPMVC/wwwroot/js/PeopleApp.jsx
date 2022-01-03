@@ -1,9 +1,23 @@
 ﻿import PeopleTable from "./PeopleIndex.jsx";
 import PersonDetails from "./PersonDetails.jsx";
+import PersonCreate from "./PersonCreate.jsx";
 
 const routes = {
     index: 0,
-    details: 1
+    details: 1,
+    create: 2
+}
+
+class GoToCreatePersonButton extends React.Component {
+    render() {
+        return (
+            <button 
+                onClick={() => this.props.onGoToCreatePerson()}
+                className={"btn btn-primary"}>
+                Create New Person
+            </button>
+        );
+    }
 }
 
 class BackButton extends React.Component {
@@ -35,6 +49,8 @@ class PeopleApp extends React.Component {
             personId: id
         });
     }
+    
+    goToCreatePerson = () => {this.setState({route: routes.create})}
 
     personDelete = (id) => {
         fetch("https://localhost:5001/React/DeletePerson/" + id, { method: 'DELETE' })
@@ -54,6 +70,7 @@ class PeopleApp extends React.Component {
                     <div>
                         {status}
                         <h1>Index Page</h1>
+                        <GoToCreatePersonButton onGoToCreatePerson={this.goToCreatePerson}/>
                         <PeopleTable onPersonDetails={this.personDetails}/>
                     </div>
                 )
@@ -65,6 +82,14 @@ class PeopleApp extends React.Component {
                         <PersonDetails onPersonDelete={this.personDelete} personId={this.state.personId}/>
                     </div>
                 )
+            case routes.create:
+                return(
+                    <div>
+                        <BackButton onBack={this.back}/>
+                        <h1>Create a new person</h1>
+                        <PersonCreate />
+                    </div>
+                );
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DevASPMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -55,6 +57,35 @@ namespace DevASPMVC.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        public IActionResult GetCitiesInCountry(int id)
+        {
+            List<City> cities = _context.Cities.Where(city => city.CountryID == id).ToList();
+            
+            return Json(cities);
+        }
+
+        [HttpGet]
+        public IActionResult GetFormData()
+        {
+            var data = new
+            {
+                genders = Enum.GetNames(typeof(Gender)),
+                countries = _context.Countries.ToList(),
+                cities = _context.Cities.ToList()
+            };
+            
+            return Json(data);
+        }
         
+
+        [HttpPut]
+        public IActionResult CreatePerson(Person person)
+        {
+            
+            
+            return Ok();
+        }
     }
 }

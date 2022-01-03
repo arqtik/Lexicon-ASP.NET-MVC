@@ -1,4 +1,6 @@
-﻿const sortAsc   = 1;
+﻿import Error from "./ReactUtilities/Error.jsx";
+
+const sortAsc   = 1;
 const sortDesc  = -1;
 
 class PeopleTableRows extends React.Component {
@@ -63,11 +65,6 @@ class PeopleTable extends React.Component {
                     })
                 }
             );
-
-        // Set response json data here
-        this.setState({
-            people: []
-        });
     }
     
     sortTable = () => {
@@ -85,16 +82,16 @@ class PeopleTable extends React.Component {
     }
     
     render() {
-        const { error, isLoaded, people} = this.state;
+        const { error, isLoaded, people, sortDirection} = this.state;
         if (error) {
-            return <div>Error: {error.message}</div>
+            <Error message={error.message}/>
         } else if (!isLoaded){
             return <div>Loading...</div>
         } else {
             return (
                 <table className="table table-striped">
                     <PeopleTableHeader sortTable={this.sortTable}/>
-                    <PeopleTableRows onPersonDetails={this.props.onPersonDetails} people={this.state.people} sortOrder={this.state.sortDirection}/>
+                    <PeopleTableRows onPersonDetails={this.props.onPersonDetails} people={people} sortOrder={sortDirection}/>
                 </table>
             );
         }
