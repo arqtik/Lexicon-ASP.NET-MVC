@@ -39,7 +39,8 @@ class PeopleApp extends React.Component {
     
     back = () => {
         this.setState({
-            route: routes.index
+            route: routes.index,
+            status: null
         })
     }
     
@@ -60,7 +61,7 @@ class PeopleApp extends React.Component {
     render() {
         let status = null;
         
-        if (this.state.status){
+        if (this.state.status !== null){
             status = <div className="p-3 mb-2 bg-success text-white">{this.state.status}</div>
         }
         
@@ -68,12 +69,12 @@ class PeopleApp extends React.Component {
             case routes.index:
                 return (
                     <div>
-                        {status}
                         <h1>Index Page</h1>
+                        {status}
                         <GoToCreatePersonButton onGoToCreatePerson={this.goToCreatePerson}/>
                         <PeopleTable onPersonDetails={this.personDetails}/>
                     </div>
-                )
+                );
             case routes.details:
                 return (
                     <div>
@@ -81,7 +82,7 @@ class PeopleApp extends React.Component {
                         <h1>Details on person</h1>
                         <PersonDetails onPersonDelete={this.personDelete} personId={this.state.personId}/>
                     </div>
-                )
+                );
             case routes.create:
                 return(
                     <div>

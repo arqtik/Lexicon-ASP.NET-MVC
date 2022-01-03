@@ -76,8 +76,6 @@ class PersonCreateForm extends React.Component {
         
         const {firstName, lastName, gender, countryId, cityId, email} = this.state;
         
-        console.log(this.state);
-        
         this.props.onSubmit({
             firstName: firstName,
             lastName: lastName,
@@ -86,6 +84,8 @@ class PersonCreateForm extends React.Component {
             cityId: cityId,
             email: email
         });
+        
+        e.target.reset();
     }
     
     render() {
@@ -154,8 +154,6 @@ class PersonCreate extends React.Component {
     }
     
     handlePersonSubmit = (person) => {
-        console.log(person);
-        
         const data = new FormData();
         data.append('FirstName', person.firstName);
         data.append('LastName', person.lastName);
@@ -174,8 +172,10 @@ class PersonCreate extends React.Component {
     render() {
         const {isLoaded, error, data, status} = this.state;
         
+        let statusBox = null;
+        
         if (status) {
-            return <div className="p-3 mb-2 bg-success text-white">{this.state.status}</div>
+            statusBox = <div className="p-3 mb-2 bg-success text-white">{this.state.status}</div>
         }
         
         if (error){
@@ -183,7 +183,12 @@ class PersonCreate extends React.Component {
         } else if(!isLoaded) {
             return <div>Loading...</div>
         } else {
-            return <PersonCreateForm data={data} onSubmit={this.handlePersonSubmit}/>
+            return(
+                <div>
+                    {statusBox}
+                    <PersonCreateForm data={data} onSubmit={this.handlePersonSubmit}/>
+                </div>
+            );
         }
     }
 }
