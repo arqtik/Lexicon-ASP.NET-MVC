@@ -3,7 +3,8 @@
 class GenderSelect extends React.Component {
     render() {
         return (
-            <select id={this.props.id} name={this.props.name} className={"form-select"} onChange={this.props.onChange}>
+            <select id={this.props.id} name={this.props.name} className={"form-select"} onChange={this.props.onChange} required>
+                <option value={""}>Select</option>
                 {
                     this.props.genders.map(gender =>
                         <option key={gender} value={gender}>{gender}</option>
@@ -17,7 +18,8 @@ class GenderSelect extends React.Component {
 class DataSelect extends React.Component {
     render() {
         return (
-            <select id={this.props.id} name={this.props.name} className={"form-select"} onChange={this.props.onChange}>
+            <select id={this.props.id} name={this.props.name} className={"form-select"} onChange={this.props.onChange} required>
+                <option value={""}>Select</option>
                 {
                     this.props.data.map(item =>
                         <option key={item.id} value={item.id}>{item.name}</option>
@@ -92,11 +94,11 @@ class PersonCreateForm extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                     <div className={"mb-3"}>
                         <label htmlFor={"firstName"}>First Name</label>
-                        <input id={"firstName"} name={"firstName"} type={"text"} className={"form-control"} onChange={this.handleFirstNameChange}/>
+                        <input id={"firstName"} name={"firstName"} type={"text"} className={"form-control"} onChange={this.handleFirstNameChange} maxLength={20} required/>
                     </div>
                     <div className={"mb-3"}>
                         <label htmlFor={"lastName"}>Last Name</label>
-                        <input id={"lastName"} name={"lastName"} type={"text"} className={"form-control"} onChange={this.handleLastNameChange}/>
+                        <input id={"lastName"} name={"lastName"} type={"text"} className={"form-control"} onChange={this.handleLastNameChange} maxLength={20} required/>
                     </div>
                     <div className={"mb-3"}>
                         <label htmlFor={"gender"}>Gender</label>
@@ -112,7 +114,7 @@ class PersonCreateForm extends React.Component {
                     </div>
                     <div className={"mb-3"}>
                         <label htmlFor={"email"}>E-mail</label>
-                        <input id="email" name={"email"} type={"email"} className={"form-control"} placeholder={"name@example.com"} onChange={this.handleEmailChange}/>
+                        <input id="email" name={"email"} type={"email"} className={"form-control"} placeholder={"name@example.com"} onChange={this.handleEmailChange} maxLength={255} required/>
                     </div>
                     <div className={"mb-3"}>
                         <button type={"submit"} className={"mb-3 btn btn-primary"}>Create Person</button>
