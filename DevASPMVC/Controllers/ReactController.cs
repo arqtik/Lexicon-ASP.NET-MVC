@@ -1,5 +1,7 @@
-﻿using DevASPMVC.Models;
+﻿using System.Linq;
+using DevASPMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevASPMVC.Controllers
 {
@@ -26,7 +28,11 @@ namespace DevASPMVC.Controllers
 
         public IActionResult Person(int id)
         {
-            Person person = _context.People.Find(id);
+            Person person = _context.People
+                .Where(p => p.ID == id)
+                .Include(p => p.City)
+                .Include(p => p.Languages)
+                .FirstOrDefault();
 
             return Json(person);
         }
