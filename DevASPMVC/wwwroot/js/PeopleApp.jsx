@@ -1,5 +1,5 @@
 ﻿import PeopleTable from "./PeopleIndex.jsx";
-import PersonDetails from "./PersonDetails";
+import PersonDetails from "./PersonDetails.jsx";
 
 const routes = {
     index: 0,
@@ -12,8 +12,11 @@ class PeopleApp extends React.Component {
         personId: null
     }
     
-    personDetails(id) {
-        this.setState({route: routes.details, personId: id});
+    personDetails = (id) => {
+        this.setState({
+            route: routes.details,
+            personId: id
+        });
     }
     
     render() {

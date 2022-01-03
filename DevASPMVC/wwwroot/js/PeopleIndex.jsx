@@ -62,12 +62,12 @@ class PeopleTable extends React.Component {
                         error
                     })
                 }
-            )
+            );
 
         // Set response json data here
         this.setState({
             people: []
-        })
+        });
     }
     
     sortTable = () => {
