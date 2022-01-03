@@ -1,4 +1,49 @@
-﻿class PersonDetails extends React.Component {
+﻿class PersonDetailsTable extends React.Component {
+    formatLanguages = (languages) => {
+        let languagesString = "";
+
+        languages.map(obj => languagesString += obj.language.name + " ");
+
+        console.log(languagesString);
+
+        return languagesString.trim();
+    }
+    
+    render() {
+        const person = this.props.person;
+        
+        return (
+            <div>
+                <table className="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">City</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Languages</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="col">{person.id}</td>
+                            <td scope="col">{person.firstName}</td>
+                            <td scope="col">{person.lastName}</td>
+                            <td scope="col">{person.gender}</td>
+                            <td scope="col">{person.city.name}</td>
+                            <td scope="col">{person.email}</td>
+                            <td scope="col">{this.formatLanguages(person.languages)}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        );
+    }
+}
+
+class PersonDetails extends React.Component {
     state = {
         isLoaded: false,
         error: null,
@@ -33,23 +78,7 @@
         else if (!isLoaded){
             return <div>Loading Person...</div>
         } else {
-            return (
-                <div>
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">{person.id}</th>
-                                <th scope="col">{person.firstName}</th>
-                                <th scope="col">{person.lastName}</th>
-                                <th scope="col">{person.gender}</th>
-                                <th scope="col">{person.city}</th>
-                                <th scope="col">{person.email}</th>
-                                <th scope="col">{person.languages}</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            );
+            return <PersonDetailsTable person={person}/>
         }
     }
 }
