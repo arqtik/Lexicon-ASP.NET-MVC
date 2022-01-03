@@ -41,8 +41,6 @@ class PeopleApp extends React.Component {
             .then(() => this.setState({ status: 'Delete successful' }));
     }
     
-    
-    
     render() {
         let status = null;
         
