@@ -8,13 +8,13 @@ namespace DevASPMVC.ViewModels
         [Display(Name = "First name")]
         [Required(ErrorMessage = "Enter first name")]
         [DataType(DataType.Text)]
-        [MaxLength(30)]
+        [MaxLength(21)]
         public string FirstName { get; set; }
         
         [Display(Name = "Last name")]
         [Required(ErrorMessage = "Enter last name")]
         [DataType(DataType.Text)]
-        [MaxLength(30)]
+        [MaxLength(21)]
         public string LastName { get; set; }
         
         [Display(Name = "Gender")]
@@ -32,6 +32,7 @@ namespace DevASPMVC.ViewModels
         [Display(Name = "E-mail")]
         [Required(ErrorMessage = "Enter a valid E-mail")]
         [DataType(DataType.EmailAddress)]
+        [MaxLength(256)]
         public string Email { get; set; }
     }
 }
