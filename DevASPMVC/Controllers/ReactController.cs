@@ -26,6 +26,7 @@ namespace DevASPMVC.Controllers
             return Json(_context.People);
         }
 
+        [HttpGet]
         public IActionResult Person(int id)
         {
             Person person = _context.People
@@ -41,5 +42,6 @@ namespace DevASPMVC.Controllers
 
             return Json(person);
         }
+        
     }
 }
