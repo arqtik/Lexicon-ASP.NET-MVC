@@ -34,6 +34,11 @@ namespace DevASPMVC.Controllers
                 .Include(p => p.Languages)
                 .FirstOrDefault();
 
+            foreach (PersonLanguage personLanguage in person.Languages)
+            {
+                personLanguage.Language = _context.Languages.Find(personLanguage.LanguageID);
+            }
+
             return Json(person);
         }
     }
