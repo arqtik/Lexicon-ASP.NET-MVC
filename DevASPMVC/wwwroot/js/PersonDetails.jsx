@@ -49,8 +49,7 @@ class PersonDetails extends React.Component {
     state = {
         isLoaded: false,
         error: null,
-        person: null,
-        status: null
+        person: null
     }
     
     componentDidMount(){
@@ -73,18 +72,11 @@ class PersonDetails extends React.Component {
             );
     }
     
-    personDelete = (id) => {
-        fetch("https://localhost:5001/React/DeletePerson/" + id)
-            .then(() => this.setState({ status: 'Delete successful' }));
-    }
-    
     render() {
         const { error, isLoaded, person, status} = this.state;
         if (error) {
             return <div className="p-3 mb-2 bg-danger text-white">Error: {this.state.error.message}</div>
-        } else if (status) {
-            return <div className="p-3 mb-2 bg-success text-white">Status: {status}</div>
-        }
+        } 
         else if (!isLoaded){
             return <div>Loading Person...</div>
         } else {

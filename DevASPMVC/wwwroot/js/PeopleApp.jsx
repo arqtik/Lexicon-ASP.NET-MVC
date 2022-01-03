@@ -19,7 +19,8 @@ class BackButton extends React.Component {
 class PeopleApp extends React.Component {
     state = {
         route: routes.index,
-        personId: null
+        personId: null,
+        status: null
     }
     
     back = () => {
@@ -34,18 +35,26 @@ class PeopleApp extends React.Component {
             personId: id
         });
     }
-    
+
     personDelete = (id) => {
-        console.log("Deleting person with id " + id);
+        fetch("https://localhost:5001/React/DeletePerson/" + id, { method: 'DELETE' })
+            .then(() => this.setState({ status: 'Delete successful' }));
     }
     
     
     
     render() {
+        let status = null;
+        
+        if (this.state.status){
+            status = <div className="p-3 mb-2 bg-success text-white">Status: {status}</div>
+        }
+        
         switch (this.state.route) {
             case routes.index:
                 return (
                     <div>
+                        {status}
                         <h1>Index Page</h1>
                         <PeopleTable onPersonDetails={this.personDetails}/>
                     </div>
