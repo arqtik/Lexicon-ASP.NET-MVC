@@ -38,14 +38,14 @@ class PeopleApp extends React.Component {
 
     personDelete = (id) => {
         fetch("https://localhost:5001/React/DeletePerson/" + id, { method: 'DELETE' })
-            .then(() => this.setState({ status: 'Delete successful' }));
+            .then(() => this.setState({ status: 'Delete successful', route: routes.index }));
     }
     
     render() {
         let status = null;
         
         if (this.state.status){
-            status = <div className="p-3 mb-2 bg-success text-white">Status: {status}</div>
+            status = <div className="p-3 mb-2 bg-success text-white">{this.state.status}</div>
         }
         
         switch (this.state.route) {
