@@ -1,11 +1,15 @@
-﻿class PersonDetailsTable extends React.Component {
+﻿class DeletePersonButton extends React.Component {
+    render() {
+        return (
+            <button onClick={() => this.props.onPersonDelete(this.props.personId)}>Delete Person</button>
+        );
+    }
+}
+
+class PersonDetailsTable extends React.Component {
     formatLanguages = (languages) => {
         let languagesString = "";
-
         languages.map(obj => languagesString += obj.language.name + " ");
-
-        console.log(languagesString);
-
         return languagesString.trim();
     }
     
@@ -13,32 +17,30 @@
         const person = this.props.person;
         
         return (
-            <div>
-                <table className="table">
-                    <thead>
+            <table className="table">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">City</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Languages</th>
+                </tr>
+                </thead>
+                <tbody>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Gender</th>
-                        <th scope="col">City</th>
-                        <th scope="col">E-mail</th>
-                        <th scope="col">Languages</th>
+                        <td scope="col">{person.id}</td>
+                        <td scope="col">{person.firstName}</td>
+                        <td scope="col">{person.lastName}</td>
+                        <td scope="col">{person.gender}</td>
+                        <td scope="col">{person.city.name}</td>
+                        <td scope="col">{person.email}</td>
+                        <td scope="col">{this.formatLanguages(person.languages)}</td>
                     </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td scope="col">{person.id}</td>
-                            <td scope="col">{person.firstName}</td>
-                            <td scope="col">{person.lastName}</td>
-                            <td scope="col">{person.gender}</td>
-                            <td scope="col">{person.city.name}</td>
-                            <td scope="col">{person.email}</td>
-                            <td scope="col">{this.formatLanguages(person.languages)}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         );
     }
 }
@@ -47,7 +49,8 @@ class PersonDetails extends React.Component {
     state = {
         isLoaded: false,
         error: null,
-        person: null
+        person: null,
+        status: null
     }
     
     componentDidMount(){
@@ -70,15 +73,27 @@ class PersonDetails extends React.Component {
             );
     }
     
+    personDelete = (id) => {
+        fetch("https://localhost:5001/React/DeletePerson/" + id)
+            .then(() => this.setState({ status: 'Delete successful' }));
+    }
+    
     render() {
-        const { error, isLoaded, person} = this.state;
+        const { error, isLoaded, person, status} = this.state;
         if (error) {
-            return <div>Error: {this.state.error.message}</div>
+            return <div className="p-3 mb-2 bg-danger text-white">Error: {this.state.error.message}</div>
+        } else if (status) {
+            return <div className="p-3 mb-2 bg-success text-white">Status: {status}</div>
         }
         else if (!isLoaded){
             return <div>Loading Person...</div>
         } else {
-            return <PersonDetailsTable person={person}/>
+            return (
+                <div>
+                    <PersonDetailsTable person={person}/>
+                    <DeletePersonButton onPersonDelete={this.props.onPersonDelete} personId={person.id}/>
+                </div>
+            );
         }
     }
 }

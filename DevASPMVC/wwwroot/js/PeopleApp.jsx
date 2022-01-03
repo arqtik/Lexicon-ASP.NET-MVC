@@ -6,10 +6,26 @@ const routes = {
     details: 1
 }
 
+class BackButton extends React.Component {
+    render() {
+        return (
+            <div>
+                <button onClick={() => this.props.onBack()}>&#11178;</button>
+            </div>
+        );
+    }
+}
+
 class PeopleApp extends React.Component {
     state = {
         route: routes.index,
         personId: null
+    }
+    
+    back = () => {
+        this.setState({
+            route: routes.index
+        })
     }
     
     personDetails = (id) => {
@@ -18,6 +34,12 @@ class PeopleApp extends React.Component {
             personId: id
         });
     }
+    
+    personDelete = (id) => {
+        console.log("Deleting person with id " + id);
+    }
+    
+    
     
     render() {
         switch (this.state.route) {
@@ -31,8 +53,9 @@ class PeopleApp extends React.Component {
             case routes.details:
                 return (
                     <div>
+                        <BackButton onBack={this.back}/>
                         <h1>Details on person</h1>
-                        <PersonDetails personId={this.state.personId}/>
+                        <PersonDetails onPersonDelete={this.personDelete} personId={this.state.personId}/>
                     </div>
                 )
         }
