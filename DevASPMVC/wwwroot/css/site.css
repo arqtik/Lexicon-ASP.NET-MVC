@@ -109,20 +109,6 @@ footer {
     background-color: darkgray;
 }
 
-table {
-    border-collapse: collapse;
-}
-
-table th {
-    background-color: #FFBF00;
-}
-
-
-table td, table th{
-    border: 1px solid #8c8c8c;
-    padding: 1rem;
-}
-
 .flex-vertical {
     display: flex;
     flex-direction: column;

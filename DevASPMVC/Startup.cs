@@ -11,6 +11,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using JavaScriptEngineSwitcher.V8;
+using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
+using React.AspNet;
 
 namespace DevASPMVC
 {
@@ -43,6 +47,12 @@ namespace DevASPMVC
                 options.SignIn.RequireConfirmedAccount = false;
             });
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddReact();
+            services.AddJsEngineSwitcher(options => 
+                options.DefaultEngineName = V8JsEngine.EngineName
+                ).AddV8();
+            
             services.AddRazorPages();
 
             services.AddDistributedMemoryCache();
@@ -67,14 +77,17 @@ namespace DevASPMVC
 
             app.UseRouting();
 
+            app.UseReact(configure =>
+            {
+                //configure.AddScript("file");
+            });
+            
             app.UseStaticFiles();
             
             app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            
 
             app.UseEndpoints(endpoints =>
             {
