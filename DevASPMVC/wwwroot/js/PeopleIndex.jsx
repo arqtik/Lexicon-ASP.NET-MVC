@@ -14,7 +14,7 @@ class PeopleTableRows extends React.Component {
                                 <td>{person.id}</td>
                                 <td>{person.firstName}</td>
                                 <td>{person.lastName}</td>
-                                <td><button onClick={() => this.props.onPersonDetails(person.id)}>SHOW</button></td>
+                                <td><button className={"btn btn-outline-primary"} onClick={() => this.props.onPersonDetails(person.id)}>SHOW</button></td>
                             </tr>
                     )
                 }
@@ -29,7 +29,7 @@ class PeopleTableHeader extends React.Component {
             <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">First Name <button onClick={this.props.sortTable}>&#8645;</button></th>
+                    <th scope="col">First Name <button className={"btn btn-outline-dark btn-sm"} onClick={this.props.sortTable}>&#8645;</button></th>
                     <th scope="col">Last Name</th>
                     <th scope="col">Details</th>
                 </tr>

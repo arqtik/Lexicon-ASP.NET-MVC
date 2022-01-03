@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DevASPMVC.Models;
+using DevASPMVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -81,11 +82,24 @@ namespace DevASPMVC.Controllers
         
 
         [HttpPut]
-        public IActionResult CreatePerson(Person person)
+        public IActionResult CreatePerson(CreatePersonViewModel person)
         {
-            
-            
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                _context.People.Add(new Person()
+                {
+                    FirstName = person.FirstName,
+                    LastName = person.LastName,
+                    Gender = person.Gender,
+                    CityID = person.CityID,
+                    Email = person.Email
+                });
+                _context.SaveChanges();
+
+                return Ok();
+            }
+
+            return BadRequest();
         }
     }
 }

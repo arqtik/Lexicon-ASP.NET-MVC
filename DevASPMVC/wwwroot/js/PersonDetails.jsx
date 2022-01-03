@@ -3,7 +3,7 @@
 class DeletePersonButton extends React.Component {
     render() {
         return (
-            <button onClick={() => this.props.onPersonDelete(this.props.personId)}>Delete Person</button>
+            <button className={"btn btn-danger"} onClick={() => this.props.onPersonDelete(this.props.personId)}>Delete Person</button>
         );
     }
 }

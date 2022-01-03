@@ -24,7 +24,7 @@ class BackButton extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={() => this.props.onBack()}>&#11178;</button>
+                <button className={"btn btn-outline-dark btn-lg"} onClick={() => this.props.onBack()}>&#11178;</button>
             </div>
         );
     }
