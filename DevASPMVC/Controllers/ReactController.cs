@@ -35,12 +35,25 @@ namespace DevASPMVC.Controllers
                 .Include(p => p.Languages)
                 .FirstOrDefault();
 
-            foreach (PersonLanguage personLanguage in person.Languages)
+            if (person != null)
             {
-                personLanguage.Language = _context.Languages.Find(personLanguage.LanguageID);
-            }
+                foreach (PersonLanguage personLanguage in person.Languages)
+                {
+                    personLanguage.Language = _context.Languages.Find(personLanguage.LanguageID);
+                }
 
+            }
+            
             return Json(person);
+        }
+
+        [HttpDelete]
+        public IActionResult DeletePerson(int id)
+        {
+            _context.People.Remove(_context.People.Find(id));
+            _context.SaveChanges();
+
+            return Ok();
         }
         
     }
