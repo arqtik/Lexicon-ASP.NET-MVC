@@ -84,7 +84,7 @@ class PeopleTable extends React.Component {
     render() {
         const { error, isLoaded, people, sortDirection} = this.state;
         if (error) {
-            <Error message={error.message}/>
+            return <Error message={error.message}/>
         } else if (!isLoaded){
             return <div>Loading...</div>
         } else {
