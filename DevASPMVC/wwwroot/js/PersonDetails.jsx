@@ -77,7 +77,7 @@ class PersonDetails extends React.Component {
     render() {
         const { error, isLoaded, person} = this.state;
         if (error) {
-            <Error message={error.message}/>
+            return <Error message={error.message}/>
         } 
         else if (!isLoaded){
             return <div>Loading Person...</div>
