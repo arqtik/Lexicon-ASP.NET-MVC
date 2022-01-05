@@ -49,7 +49,7 @@ class PeopleTable extends React.Component {
     componentDidMount() {
         // Fetch people
         // Do some cool fetching here
-        fetch("https://localhost:5001/React/People")
+        fetch("/React/People")
             .then(res => res.json())
             .then(
                 (result) => {

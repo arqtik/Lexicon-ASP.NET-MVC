@@ -54,7 +54,7 @@ class PeopleApp extends React.Component {
     goToCreatePerson = () => {this.setState({route: routes.create})}
 
     personDelete = (id) => {
-        fetch("https://localhost:5001/React/DeletePerson/" + id, { method: 'DELETE' })
+        fetch("/React/DeletePerson/" + id, { method: 'DELETE' })
             .then(() => this.setState({ status: 'Delete successful', route: routes.index }));
     }
     

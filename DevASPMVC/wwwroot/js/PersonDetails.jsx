@@ -56,7 +56,7 @@ class PersonDetails extends React.Component {
     
     componentDidMount(){
         // fetch full person details
-        fetch("https://localhost:5001/React/Person/" + this.props.personId)
+        fetch("/React/Person/" + this.props.personId)
             .then(res => res.json())
             .then(
                 (result) => {

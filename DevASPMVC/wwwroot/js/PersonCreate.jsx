@@ -135,7 +135,7 @@ class PersonCreate extends React.Component {
     }
     
     componentDidMount(){
-        fetch("https://localhost:5001/React/GetFormData")
+        fetch("/React/GetFormData")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -162,7 +162,7 @@ class PersonCreate extends React.Component {
         data.append('CityId', person.cityId);
         data.append('Email', person.email);
 
-        fetch("https://localhost:5001/React/CreatePerson", 
+        fetch("/React/CreatePerson", 
             {method: "PUT", body: data})
             .then(() => this.setState({ status: 'Created person successfully' }));
         
